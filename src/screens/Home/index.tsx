@@ -42,8 +42,10 @@ export function Home() {
         <View className="flex-row items-center flex-1 space-x-2 bg-gray-200 p-3">
           <SpeakerWaveIcon color="gray" size={20} />
           <TextInput
+            testID="search-home-input-id"
             placeholder="Restaurants and cuisineis"
             keyboardType="default"
+            maxLength={42}
           />
         </View>
         <AdjustmentsVerticalIcon color="#00ccbb" />
