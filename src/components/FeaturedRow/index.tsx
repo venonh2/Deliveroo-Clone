@@ -1,5 +1,8 @@
+import { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { ArrowRightIcon } from "react-native-heroicons/solid";
+import { Restaurant } from "../../types/Restaurant";
+import { sanityService } from "../../http/featuredCategoriesService";
 import { RestaurantCard } from "../RestarauntCard";
 
 type Props = {
@@ -9,7 +12,24 @@ type Props = {
   featuredCategory?: string;
 };
 
-export function FeaturedRow({ title, description, featuredCategory }: Props) {
+export function FeaturedRow({
+  id,
+  title,
+  description,
+  featuredCategory,
+}: Props) {
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+
+  useEffect(() => {
+    sanityService
+      .fetchFeaturedRowRestaurants(id)
+      .then((res) => {
+        setRestaurants(res?.restaurants);
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <View>
       <View className="mt-4 flex-row items-center justify-between px-4">
@@ -26,60 +46,21 @@ export function FeaturedRow({ title, description, featuredCategory }: Props) {
         showsHorizontalScrollIndicator={false}
       >
         {/* restaraunt card */}
-        <RestaurantCard
-          id="eita eia"
-          imgUrl="https://img2.storyblok.com/filters:format(webp)/f/62776/512x256/0ee9c5082d/dessert-wide.jpg"
-          title="eita eia"
-          rating="5"
-          genre="eita eia"
-          address="eita eia"
-          short_description="eita eia"
-          dishies={[
-            {
-              name: "teste",
-              price: 34,
-              description: "vish paapi",
-            },
-          ]}
-          lat={25.232332}
-          long={25.232332}
-        />
-        <RestaurantCard
-          id="eita eia"
-          imgUrl="https://img2.storyblok.com/filters:format(webp)/f/62776/512x256/0ee9c5082d/dessert-wide.jpg"
-          title="eita eia"
-          rating="5"
-          genre="eita eia"
-          address="eita eia"
-          short_description="eita eia"
-          dishies={[
-            {
-              name: "teste",
-              price: 34,
-              description: "vish paapi",
-            },
-          ]}
-          lat={25.232332}
-          long={25.232332}
-        />
-        <RestaurantCard
-          id="eita eia"
-          imgUrl="https://img2.storyblok.com/filters:format(webp)/f/62776/512x256/0ee9c5082d/dessert-wide.jpg"
-          title="eita eia"
-          rating="5"
-          genre="eita eia"
-          address="eita eia"
-          short_description="eita eia"
-          dishies={[
-            {
-              name: "teste",
-              price: 34,
-              description: "vish paapi",
-            },
-          ]}
-          lat={25.232332}
-          long={25.232332}
-        />
+        {restaurants?.map((restaurant) => (
+          <RestaurantCard
+            key={restaurant._id}
+            id={restaurant._id}
+            imgUrl="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=640&q=80"
+            title={restaurant.name}
+            rating={restaurant.rating}
+            genre={restaurant._type}
+            address={restaurant.address}
+            short_description={restaurant.short_description}
+            dishies={restaurant.dishies}
+            lat={25.232332}
+            long={25.232332}
+          />
+        ))}
       </ScrollView>
     </View>
   );

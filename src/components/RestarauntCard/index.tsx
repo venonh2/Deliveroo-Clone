@@ -1,17 +1,12 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { StarIcon } from "react-native-heroicons/solid";
-
-type Dishie = {
-  name: string;
-  price: number;
-  description: string;
-};
+import { Dishie } from "../../types/Dishie";
 
 type Props = {
   id: string;
   imgUrl: string;
   title: string;
-  rating: string;
+  rating: number;
   genre: string;
   address: string;
   short_description: string;
@@ -41,7 +36,7 @@ export function RestaurantCard({
         }}
       />
       <View className="px-3 pb-4">
-        <Text className="font-bold text--lg pt-2">{title}</Text>
+        <Text className="font-bold text-lg pt-2">{title}</Text>
         <View className="flex-row items-center space-x-1">
           <StarIcon color="green" opacity={0.5} size={22} />
           <Text className="text-xs text-gray-500">
@@ -50,7 +45,9 @@ export function RestaurantCard({
         </View>
         <View className="flex-row items-center space-x-1">
           <StarIcon color="gray" opacity={0.4} size={22} />
-          <Text className="text-xs text-gray-500">Nearby . {address}</Text>
+          <Text className="text-xs text-gray-500">
+            Nearby . {address.slice(0, 6)}...
+          </Text>
         </View>
       </View>
     </TouchableOpacity>

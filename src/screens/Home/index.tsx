@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   SafeAreaView,
@@ -12,13 +12,27 @@ import {
   ChevronDownIcon,
   UserIcon,
   AdjustmentsVerticalIcon,
-  S,
   SpeakerWaveIcon,
 } from "react-native-heroicons/solid";
+import { FeaturedCategory } from "../../types/FeaturedCategory";
 import { Categories } from "../../components/Categories";
 import { FeaturedRow } from "../../components/FeaturedRow";
+import { sanityService } from "../../http/featuredCategoriesService";
 
 export function Home() {
+  const [featuredCategories, setFeaturedCategories] = useState<
+    FeaturedCategory[]
+  >([]);
+
+  useEffect(() => {
+    sanityService
+      .fetchFeaturedCategories()
+      .then((res) => {
+        setFeaturedCategories(res);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <SafeAreaView className="pt-10 bg-white">
       {/* header */}
@@ -60,24 +74,15 @@ export function Home() {
         {/* Categories */}
         <Categories />
         {/* Featured Rows */}
-        <FeaturedRow
-          id="212122"
-          title="Featured"
-          description="Paid placements from our partners"
-          featuredCategory="featured"
-        />
-        <FeaturedRow
-          id="212122"
-          title="Featured"
-          description="Paid placements from our partners"
-          featuredCategory="featured"
-        />
-        <FeaturedRow
-          id="212122"
-          title="Featured"
-          description="Paid placements from our partners"
-          featuredCategory="featured"
-        />
+        {featuredCategories?.map((category) => (
+          <FeaturedRow
+            key={category._id}
+            id={category._id}
+            title={category.name}
+            description={category.short_description}
+            featuredCategory={category.name}
+          />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
