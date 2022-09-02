@@ -1,6 +1,20 @@
 import create from "zustand";
+import { FeaturedCategory } from "../types/FeaturedCategory";
 
-const useFeaturedCategoriesStore = create((set) => ({
-  featuredCategories: [],
-  setFeaturedCategories: () => set((state) => state),
-}));
+type FeaturedCategoryStore = {
+  featuredCategories: FeaturedCategory[];
+  setFeaturedCategory: (featuredCategories: FeaturedCategory[]) => void;
+};
+
+export const useFeaturedCategoriesStore = create<FeaturedCategoryStore>(
+  (set) => ({
+    featuredCategories: [],
+    setFeaturedCategory: (featuredCategories) =>
+      set((state) => ({
+        featuredCategories: [
+          ...state.featuredCategories,
+          ...featuredCategories,
+        ],
+      })),
+  })
+);

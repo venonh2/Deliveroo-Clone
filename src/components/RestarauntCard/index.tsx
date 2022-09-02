@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { StarIcon } from "react-native-heroicons/solid";
 import { Dishie } from "../../types/Dishie";
@@ -15,20 +16,27 @@ type Props = {
   long: number;
 };
 
-export function RestaurantCard({
-  id,
-  imgUrl,
-  title,
-  rating,
-  genre,
-  address,
-  short_description,
-  dishies,
-  lat,
-  long,
-}: Props) {
+export function RestaurantCard(props: Props) {
+  const {
+    id,
+    imgUrl,
+    title,
+    rating,
+    genre,
+    address,
+    short_description,
+    dishies,
+    lat,
+    long,
+  } = props;
+
+  const navigation = useNavigation();
+
   return (
-    <TouchableOpacity className="bg-white mr-3 shadow">
+    <TouchableOpacity
+      onPress={() => navigation.navigate("Restaurant", props)}
+      className="bg-white mr-3 shadow"
+    >
       <Image
         className="h-36 w-36 rounded-sm"
         source={{

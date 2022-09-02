@@ -1,9 +1,10 @@
 import sanityClient from "../../sanity";
+import { FeaturedCategory } from "../types/FeaturedCategory";
 import { requestResolver } from "./helpers/requestResolver";
 
 export const sanityService = {
   fetchFeaturedCategories: () => {
-    return requestResolver(
+    return requestResolver<FeaturedCategory[]>(
       sanityClient.fetch(
         `
         *[_type == 'featured'] {

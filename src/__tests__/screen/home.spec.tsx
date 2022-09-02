@@ -2,6 +2,8 @@ import { render } from "@testing-library/react-native";
 
 import { Home } from "../../screens/Home";
 
+/* jest.mock("../../assets/Shawarma-pana.svg"); */
+
 describe("Home screen", () => {
   it("it should render the home screen", () => {
     render(<Home />);

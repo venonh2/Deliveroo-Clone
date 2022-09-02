@@ -7,7 +7,6 @@ type Props = {
 export function CategoryCard({ title, imgURi }: Props) {
   return (
     <TouchableOpacity
-      rippleColor="red"
       style={{
         marginRight: 8,
         position: "relative",
@@ -19,8 +18,12 @@ export function CategoryCard({ title, imgURi }: Props) {
         source={{
           uri: imgURi,
         }}
+        testID="category-image-testId"
       />
-      <Text className="absolute bottom-1 left-1 text-white font-bold">
+      <Text
+        className="absolute bottom-1 left-1 text-white font-bold"
+        testID="category-title-testId"
+      >
         {title}
       </Text>
     </TouchableOpacity>
