@@ -1,22 +1,15 @@
 import { Dishie } from "./Dishie";
-import { Image } from "./Image";
+import { ResourceImage } from "./Image";
 
 export type Restaurant = {
-  _createdAt: string;
   _id: string;
-  _rev: string;
-  _type: string;
-  _updatedAt: string;
   address: string;
-  image: Image;
+  image: ResourceImage;
   lat: number;
   long: number;
   name: string;
   rating: number;
+  _type: string;
   short_description: string;
-  type: {
-    _ref: string;
-    _type: string;
-  };
   dishies: Dishie[];
 };

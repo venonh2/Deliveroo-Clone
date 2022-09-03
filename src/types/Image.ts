@@ -1,6 +1,6 @@
 import { Assets } from "./Assets";
 
-export type Image = {
+export type ResourceImage = {
   _type: string;
   asset: Assets;
 };

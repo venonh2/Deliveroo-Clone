@@ -1,4 +1,4 @@
-import { Image } from "./Image";
+import { ResourceImage } from "./Image";
 
 export type Category = {
   _createdAt: string;
@@ -6,6 +6,6 @@ export type Category = {
   _rev: string;
   _type: string;
   _updatedAt: string;
-  image: Image;
+  image: ResourceImage;
   name: string;
 };

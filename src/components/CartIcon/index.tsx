@@ -1,8 +1,8 @@
-import { Text } from "moti";
-import { TouchableOpacity } from "react-native";
+import React from "react";
+import { MotiView } from "moti";
+import { TouchableOpacity, Text } from "react-native";
 import Currency from "react-currency-formatter";
 
-import { View } from "react-native";
 import { countCartTotal, useDishCart } from "../../store/useDishCart";
 import { useNavigation } from "@react-navigation/native";
 
@@ -11,9 +11,22 @@ export function CartIcon() {
   const { total: cartTotal } = useDishCart((state) =>
     countCartTotal(state.cartItems)
   );
+  const cartItems = useDishCart((state) => state.cartItems);
 
   return (
-    <View className="absolute bottom-10 w-full z-50">
+    <MotiView
+      from={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+      }}
+      transition={{
+        type: "timing",
+        duration: 600,
+      }}
+      className="absolute bottom-10 w-full z-50"
+    >
       <TouchableOpacity
         onPress={() => navigation.navigate("Cart")}
         className="mx-5 bg-[#00CCBB] p-4 rounded-lg flex-row items-center space-x-1"
@@ -28,6 +41,6 @@ export function CartIcon() {
           <Currency quantity={cartTotal} currency="USD" />
         </Text>
       </TouchableOpacity>
-    </View>
+    </MotiView>
   );
 }

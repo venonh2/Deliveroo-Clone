@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Home } from "../screens/Home";
-import { Restaurant } from "../screens/Restaurant";
+import { RestaurantScreen } from "../screens/Restaurant";
 import { Cart } from "../screens/Cart";
 
 const Stack = createNativeStackNavigator();
@@ -22,7 +22,7 @@ export function Routes() {
         />
         <Stack.Screen
           name="Restaurant"
-          component={Restaurant}
+          component={RestaurantScreen}
           options={{
             headerShown: false,
             animation: "slide_from_right",
@@ -33,6 +33,7 @@ export function Routes() {
           component={Cart}
           options={{
             headerShown: false,
+            presentation: "modal",
             animation: "fade_from_bottom",
           }}
         />

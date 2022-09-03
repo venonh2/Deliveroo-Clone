@@ -42,4 +42,13 @@ export function countCartTotal(items: Props[]) {
 export function filterCartItemsById(id: string, items: Props[]) {
   return items.filter((dishie) => dishie.id === id);
 }
+
+export function groupItemsById(items: Props[]) {
+  return items.reduce<{ [key: string]: Props[] }>((group, item) => {
+    const { id } = item;
+    group[id] = group[id] ?? [];
+    group[id].push(item);
+    return group;
+  }, {});
+}
 //#endregion helpers

@@ -1,5 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { MotiView, ScrollView } from "moti";
+import { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import {
   ArrowLeftIcon,
@@ -10,7 +11,10 @@ import {
 } from "react-native-heroicons/solid";
 import { CartIcon } from "../../components/CartIcon";
 import { DishRow } from "../../components/DishRow";
+import { useDishCart } from "../../store/useDishCart";
+import { useRestaurant } from "../../store/useRestaurant";
 import { Dishie } from "../../types/Dishie";
+import { ResourceImage } from "../../types/Image";
 
 type Props = {
   id: string;
@@ -31,9 +35,27 @@ type ParamList = {
 
 type ScreenRouteProp = RouteProp<ParamList, "Restaurant">;
 
-export function Restaurant() {
+export function RestaurantScreen() {
   const { params } = useRoute<ScreenRouteProp>();
   const navigation = useNavigation();
+  const setRestaurant = useRestaurant((state) => state.setRestaurant);
+  const cartItems = useDishCart((state) => state.cartItems);
+
+  useEffect(() => {
+    setRestaurant({
+      _id: params.id,
+      address: params.address,
+      dishies: params.dishies,
+      image: {} as ResourceImage,
+      lat: params.lat,
+      long: params.long,
+      name: params.title,
+      rating: params.rating,
+      _type: params.genre,
+      short_description: params.short_description,
+    });
+  }, []);
+
   return (
     <>
       <MotiView
@@ -118,7 +140,7 @@ export function Restaurant() {
           </View>
         </ScrollView>
       </MotiView>
-      <CartIcon />
+      {cartItems.length > 0 && <CartIcon />}
     </>
   );
 }

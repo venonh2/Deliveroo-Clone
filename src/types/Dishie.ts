@@ -1,4 +1,4 @@
-import { Image } from "./Image";
+import { ResourceImage } from "./Image";
 
 export type Dishie = {
   _createdAt: string;
@@ -6,7 +6,7 @@ export type Dishie = {
   _rev: string;
   _type: string;
   _updatedAt: string;
-  image: Image;
+  image: ResourceImage;
   name: string;
   price: number;
   short_description: string;
